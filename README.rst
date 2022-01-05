@@ -185,3 +185,11 @@ or run your own HTTP-server (for example https://github.com/danihodovic/mjml-ser
   ]
 
 You can set one or more servers and a random one will be used.
+
+func mode
+^^^^^^^^^
+
+This mode allows you to use your own custom rendering function
+
+  MJML_BACKEND_MODE = 'func'
+  MJML_EXEC_FUNC = 'app.module.function arg_1 arg_2'

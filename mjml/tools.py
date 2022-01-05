@@ -12,9 +12,24 @@ import subprocess
 import tempfile
 from django.utils.encoding import force_str, force_bytes
 from mjml import settings as mjml_settings
+from importlib import import_module
 
 
 _cache = {}
+
+def _mjml_render_by_func(mjml_code):
+    if 'func_args' not in _cache:
+        func_args = copy.copy(mjml_settings.MJML_EXEC_FUNC)
+        _cache['func_args'] = func_args
+    else:
+        func_args = _cache['func_args']
+
+    func_mod_str, *params = func_args.split(' ')
+    mod_str, func_str = func_mod_str.rsplit('.', 1)
+    mod = import_module(mod_str)
+    func = getattr(mod, func_str)
+    
+    return func(mjml_code, *params)
 
 
 def _mjml_render_by_cmd(mjml_code):
@@ -160,4 +175,6 @@ def mjml_render(mjml_code):
         return _mjml_render_by_tcpserver(mjml_code)
     elif mjml_settings.MJML_BACKEND_MODE == 'httpserver':
         return _mjml_render_by_httpserver(mjml_code)
+    elif mjml_settings.MJML_BACKEND_MODE == 'func':
+        return _mjml_render_by_func(mjml_code)
     raise RuntimeError('Invalid settings.MJML_BACKEND_MODE "{}"'.format(mjml_settings.MJML_BACKEND_MODE))

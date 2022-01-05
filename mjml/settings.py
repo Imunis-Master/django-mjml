@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from django.conf import settings
 
 MJML_BACKEND_MODE = getattr(settings, 'MJML_BACKEND_MODE', 'cmd')
-assert MJML_BACKEND_MODE in ('cmd', 'tcpserver', 'httpserver')
+assert MJML_BACKEND_MODE in ('cmd', 'tcpserver', 'httpserver', 'func')
 
 # cmd backend mode configs
 MJML_EXEC_CMD = getattr(settings, 'MJML_EXEC_CMD', 'mjml')
@@ -28,3 +28,8 @@ for t in MJML_HTTPSERVERS:
         assert isinstance(http_auth, (type(None), list, tuple))
         if http_auth is not None:
             assert len(http_auth) == 2 and isinstance(http_auth[0], str) and isinstance(http_auth[1], str)
+
+# func backend mode configs
+MJML_EXEC_FUNC = getattr(settings, 'MJML_EXEC_FUNC', None)
+if MJML_BACKEND_MODE == 'func':
+    assert MJML_EXEC_FUNC is not None
