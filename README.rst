@@ -192,4 +192,11 @@ func mode
 This mode allows you to use your own custom rendering function. ::
 
   MJML_BACKEND_MODE = 'func'
-  MJML_EXEC_FUNC = 'app.module.function arg_1 arg_2'
+  MJML_EXEC_FUNC = 'app.module.custom_function'
+
+The function should return the compiled MJML content as a string. ::
+
+  custom_function(mjml_code):
+    ...
+    return html_string
+    
