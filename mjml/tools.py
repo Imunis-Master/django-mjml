@@ -175,7 +175,7 @@ def mjml_render(mjml_source: str) -> str:
     elif mjml_settings.MJML_BACKEND_MODE == 'tcpserver':
         return _mjml_render_by_tcpserver(mjml_source)
     elif mjml_settings.MJML_BACKEND_MODE == 'httpserver':
-        return _mjml_render_by_httpserver(mjml_code)
+        return _mjml_render_by_httpserver(mjml_source)
     elif mjml_settings.MJML_BACKEND_MODE == 'func':
-        return _mjml_render_by_func(mjml_code)
+        return _mjml_render_by_func(mjml_source)
     raise RuntimeError(f'Invalid settings.MJML_BACKEND_MODE "{mjml_settings.MJML_BACKEND_MODE}"')
