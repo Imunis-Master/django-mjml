@@ -17,9 +17,6 @@ setup(
     zip_safe=False,  # because include static
     platforms=['OS Independent'],
     python_requires='>=3.6',
-    setup_requires=[
-        'django >=2.2,<5.2',
-    ],
     install_requires=[
         'django >=2.2,<5.2',
     ],
